@@ -2,5 +2,5 @@ package command;
 
 public interface ICommand {
 
-    public String execute();
+    public String execute(String instruction);
 }

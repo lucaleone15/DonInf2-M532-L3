@@ -1,6 +1,12 @@
 package command;
 
-public class MoveCommand extends Command implements ICommand{
+import main.WorldMap;
+
+public class MoveCommand extends Command {
+
+    public MoveCommand(WorldMap worldMap) {
+        
+    }
 
     @Override
     public String execute(String direction) {

@@ -1,6 +1,6 @@
 package command;
 
-public abstract class Command {
+public abstract class Command implements ICommand {
     private String description;
     private String verb;
 
