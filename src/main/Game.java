@@ -19,12 +19,9 @@ public class Game {
         // Initialization of the map and of the player
         int row = 20;
         int col = 20;
-        WorldMap worldmap = new WorldMap(row, col);
+        WorldMap worldMap = new WorldMap(row, col);
         Player player = new Player();
-        worldmap.setPlayerLocation(0,0);
-
-
-
+        worldMap.setPlayerLocation(0,0);
         // end of game
     }
 
