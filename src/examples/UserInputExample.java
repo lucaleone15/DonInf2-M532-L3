@@ -13,8 +13,6 @@ public class UserInputExample {
 
         System.out.println("Hello, " + name + "!");
 
-        scanner.close();
-
         System.out.println("====================================");
     }
 }

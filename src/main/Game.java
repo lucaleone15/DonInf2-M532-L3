@@ -1,27 +1,60 @@
 package main;
 
 
-import play.CommandRegistery;
+import command.MoveCommand;
+import play.CommandRegistry;
 import play.Player;
+
+import java.util.Scanner;
 
 public class Game {
     private Player player;
     private WorldMap worldMap;
-    private CommandRegistery commandRegistery;
+    private CommandRegistry commandRegistry;
+    private Scanner scanner;
 
     public Game(){
         System.out.println("Initializing game...");
     }
-    
-    public void run() {
-        System.out.println("Running game...");
-        // your runtime code here...
+
+    public void initialization() {
+
         // Initialization of the map and of the player
         int row = 20;
         int col = 20;
-        WorldMap worldMap = new WorldMap(row, col);
-        Player player = new Player();
-        worldMap.setPlayerLocation(0,0);
+
+        this.worldMap = new WorldMap(row, col);
+        this.player = new Player();
+        this.worldMap.setPlayerLocation(0, 0);
+
+        this.commandRegistry = new CommandRegistry();
+        this.commandRegistry.register("move", new MoveCommand(worldMap));
+        this.scanner = new java.util.Scanner(System.in);
+    }
+
+
+    public void run() {
+        System.out.println("Running game...");
+        // your runtime code here...
+        this.initialization();
+
+        System.out.println("Welcome to the Adventure Game!");
+        System.out.println("Use 'move <north|south|east|west>");
+        System.out.println("Type 'map' to see the map.");
+        System.out.println("Type 'quit' to exit.");
+
+        while (true) {
+            System.out.print("> ");
+            if (!scanner.hasNextLine()) break;
+
+            String input = scanner.nextLine().trim();
+            if (input.equalsIgnoreCase("quit")) break;
+
+            String result = commandRegistry.execute(input);
+            System.out.println(result);
+        }
+
+        System.out.println("Thanks for playing!");
         // end of game
     }
 
