@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 public class CommandRegistry {
-    private Map<String, Command> commands = new HashMap<>();
+    private final Map<String, Command> commands = new HashMap<>();
 
     public void register(String keyword, Command command) {
         commands.put(keyword.toLowerCase(), command);
@@ -25,5 +25,12 @@ public class CommandRegistry {
         }
 
         return command.execute(args);
+    }
+
+    public Map<String, Command> getCommands() {
+        for(Map. Entry<String, Command> commands : commands.entrySet()){
+            System.out.println(commands.getKey() + ": " + commands.getValue().getDescription());
+        }
+        return commands;
     }
 }

@@ -4,9 +4,10 @@ import main.Location;
 import main.WorldMap;
 
 public class MoveCommand extends Command {
-    WorldMap worldMap;
+    private WorldMap worldMap;
 
-    public MoveCommand(WorldMap worldMap) {
+    public MoveCommand(String verb, String description, WorldMap worldMap) {
+        super(verb, description);
         this.worldMap = worldMap;
     }
 

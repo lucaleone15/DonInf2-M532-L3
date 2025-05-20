@@ -1,6 +1,9 @@
 package main;
 
 
+import command.Command;
+import command.HelpCommand;
+import command.MapCommand;
 import command.MoveCommand;
 import play.CommandRegistry;
 import play.Player;
@@ -20,15 +23,20 @@ public class Game {
     public void initialization() {
 
         // Initialization of the map and of the player
-        int row = 20;
-        int col = 20;
+        int row = 10;
+        int col = 10;
 
         this.worldMap = new WorldMap(row, col);
         this.player = new Player();
         this.worldMap.setPlayerLocation(0, 0);
 
         this.commandRegistry = new CommandRegistry();
-        this.commandRegistry.register("move", new MoveCommand(worldMap));
+        Command mapCommand = new MapCommand("map", "Type 'map' to see the map.", worldMap);
+        Command moveCommand = new MoveCommand("move", "Use 'move <north|south|east|west>' to move your player", worldMap);
+        Command helpCommand = new HelpCommand("help", "Use 'help' to know which commands are usable", commandRegistry);
+        this.commandRegistry.register("move", mapCommand);
+        this.commandRegistry.register("help", helpCommand);
+        this.commandRegistry.register("map", mapCommand);
         this.scanner = new java.util.Scanner(System.in);
     }
 
@@ -39,7 +47,8 @@ public class Game {
         this.initialization();
 
         System.out.println("Welcome to the Adventure Game!");
-        System.out.println("Use 'move <north|south|east|west>");
+        System.out.println("Use 'move <north|south|east|west>'");
+        System.out.println("Use 'help' to know which commands are usable");
         System.out.println("Type 'map' to see the map.");
         System.out.println("Type 'quit' to exit.");
 
