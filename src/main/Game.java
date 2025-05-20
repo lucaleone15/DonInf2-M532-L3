@@ -34,7 +34,7 @@ public class Game {
         Command mapCommand = new MapCommand("map", "Type 'map' to see the map.", worldMap);
         Command moveCommand = new MoveCommand("move", "Use 'move <north|south|east|west>' to move your player", worldMap);
         Command helpCommand = new HelpCommand("help", "Use 'help' to know which commands are usable", commandRegistry);
-        this.commandRegistry.register("move", mapCommand);
+        this.commandRegistry.register("move", moveCommand);
         this.commandRegistry.register("help", helpCommand);
         this.commandRegistry.register("map", mapCommand);
         this.scanner = new java.util.Scanner(System.in);
