@@ -13,7 +13,7 @@ public class WorldMap {
     }
 
     private void generateMap() {
-        map = new Location[10][10];
+        map = new Location[3][3];
         WorldMapLocationGenerator worldMapLocationGenerator = new WorldMapLocationGenerator();
         worldMapLocationGenerator.generateWorldMapLocation(map);
     }

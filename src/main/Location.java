@@ -1,6 +1,7 @@
 package main;
 
 import item.Item;
+import item.Key;
 import utils.IPrintable;
 
 public class Location implements IPrintable {
@@ -8,12 +9,14 @@ public class Location implements IPrintable {
     private String description;
     private boolean isLocked;
     private Item item;
+    private Key requiredKey;
 
-    public Location(String name, String description, boolean isLocked, Item item) {
+    public Location(String name, String description, boolean isLocked, Item item, Key requiredKey) {
         this.name = name;
         this.description = description;
         this.isLocked = isLocked;
         this.item = item;
+        this.requiredKey = requiredKey;
     }
 
     public String getName() {
@@ -35,8 +38,17 @@ public class Location implements IPrintable {
         return this.item;
     }
 
+    public boolean requiresKey() {
+        return requiredKey != null;
+    }
+
+    public boolean canBeUnlockedWith(Key key) {
+        return requiredKey != null && requiredKey.equals(key);
+    }
+
     public void unlock() {
         this.isLocked = false;
+        this.requiredKey = null;
     }
 
     @Override

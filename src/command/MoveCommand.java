@@ -3,7 +3,7 @@ package command;
 import main.Location;
 import main.WorldMap;
 
-public class MoveCommand extends Command {
+public class MoveCommand extends Command implements ICommand {
     private WorldMap worldMap;
 
     public MoveCommand(String verb, String description, WorldMap worldMap) {

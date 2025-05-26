@@ -1,6 +1,7 @@
 package play;
 
 import item.Item;
+import item.Key;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,4 +20,14 @@ public class Inventory {
     public void removeItem(Item item){
         itemList.remove(item);
     }
+
+    public Key getKey(String keyName) {
+        for (Item items : itemList) {
+            if (items.getName().equalsIgnoreCase(keyName)) {
+                return null;
+            }
+        }
+        return null; // si aucune clé ne correspond
+    }
+
 }
