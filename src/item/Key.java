@@ -3,15 +3,9 @@ package item;
 import main.Location;
 
 public class Key extends Item{
-    private Location location;
 
-    public Key (String name, String description, Location location){
+    public Key (String name, String description){
         super(name, description);
-        this.location = location;
-    }
-
-    public Location getLocation() {
-        return this.location;
     }
 
     @Override

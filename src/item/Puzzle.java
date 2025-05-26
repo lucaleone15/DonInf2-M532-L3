@@ -3,25 +3,25 @@ package item;
 import main.Location;
 
 public class Puzzle {
-    private String solution;
-    Location location;
-    Key key;
+    private String question;
+    private String answer;
+    private String targetLocationName;
 
-    public Puzzle (String solution, Location location, Key key){
-        this.solution = solution;
-        this.location = location;
-        this.key = key;
+    public Puzzle(String question, String answer, String targetLocationName) {
+        this.question = question;
+        this.answer = answer.toLowerCase(); // pour simplifier la comparaison
+        this.targetLocationName = targetLocationName;
     }
 
-    public String getSolution() {
-        return this.solution;
+    public boolean tryAnswer(String playerAnswer) {
+        return this.answer.equals(playerAnswer.toLowerCase());
     }
 
-    public Key getKey() {
-        return this.key;
+    public String getTargetLocationName() {
+        return this.targetLocationName;
     }
 
-    public Location getLocation() {
-        return this.location;
+    public String getQuestion() {
+        return this.question;
     }
 }

@@ -38,11 +38,15 @@ public class Location implements IPrintable {
         return this.item;
     }
 
+    public void removeItem() {
+        this.item = null;
+    }
+
     public boolean requiresKey() {
         return requiredKey != null;
     }
 
-    public boolean canBeUnlockedWith(Key key) {
+    public boolean canBeUnlockedWith(Item key) {
         return requiredKey != null && requiredKey.equals(key);
     }
 

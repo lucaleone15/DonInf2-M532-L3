@@ -54,4 +54,17 @@ public class WorldMap {
     public Location[][] getMap() {
         return this.map;
     }
+
+    public Location getLocationByName(String name) {
+        for (int row = 0; row < map.length; row++) {
+            for (int col = 0; col < map[row].length; col++) {
+                Location loc = map[row][col];
+                if (loc != null && loc.getName().equalsIgnoreCase(name)) {
+                    return loc;
+                }
+            }
+        }
+        return null;  // Pas de location trouvée avec ce nom
+    }
+
 }
