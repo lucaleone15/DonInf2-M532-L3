@@ -7,6 +7,9 @@ import item.Puzzle;
 import play.CommandRegistry;
 import play.Inventory;
 import play.Player;
+import utils.Color;
+import utils.StringStyling;
+import utils.Style;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +23,7 @@ public class Game {
 
 
     public Game(){
-        System.out.println("Initializing game...");
+        //System.out.println("Initializing game...");
     }
 
     public void initialization() {
@@ -54,14 +57,14 @@ public class Game {
 
 
 
-        Command mapCommand = new MapCommand("map", "Type 'map' to see the map.", worldMap);
-        Command moveCommand = new MoveCommand("move", "Use 'move <north|south|east|west>' to move your player", worldMap);
-        Command helpCommand = new HelpCommand("help", "Use 'help' to know which commands are usable", commandRegistry);
-        Command lookCommand = new LookCommand("look", "Type 'look' to see if there is an object in your player location", worldMap);
-        Command inspectCommand = new InspectCommand("inspect", "Type 'inspect' to see an item description", inventory, scanner);
-        Command takeCommand = new TakeCommand("Take", "Use 'take' to put an item in your inventory", worldMap, inventory);
-        Command useCommand = new UseCommand("Use", "Type 'use' to use a key to unlock a location", worldMap, inventory, scanner);
-        Command sayCommand = new SayCommand("say", "Use 'say' <your answer> to resolve a puzzle", worldMap, inventory, puzzles);
+        Command mapCommand = new MapCommand("map", "Use 'map' to see the map.", worldMap);
+        Command moveCommand = new MoveCommand("move", "Use 'move north/south/east/west' to move.", worldMap);
+        Command helpCommand = new HelpCommand("help", "Use 'help' to know which commands are usable.", commandRegistry);
+        Command lookCommand = new LookCommand("look", "Use 'look' to see if there is an object in your player location.", worldMap);
+        Command inspectCommand = new InspectCommand("inspect", "Use 'inspect' to see an item description.", inventory, scanner);
+        Command takeCommand = new TakeCommand("Take", "Use 'take' to put an item in your inventory.", worldMap, inventory);
+        Command useCommand = new UseCommand("Use", "Use 'use' to use a key to unlock a location.", worldMap, inventory, scanner);
+        Command sayCommand = new SayCommand("say", "Use 'say answer' to resolve a puzzle.", worldMap, inventory, puzzles);
         this.commandRegistry.register("move", moveCommand);
         this.commandRegistry.register("help", helpCommand);
         this.commandRegistry.register("map", mapCommand);
@@ -74,20 +77,22 @@ public class Game {
 
 
     public void run() {
-        System.out.println("Running game...");
+        //System.out.println("Running game...");
         // your runtime code here...
         this.initialization();
 
-        System.out.println("Welcome to the Adventure Game!");
-        System.out.println("Use 'move <north|south|east|west>'");
-        System.out.println("Use 'help' to know which commands are usable");
-        System.out.println("Type 'map' to see the map.");
-        System.out.println("Type 'look' to see if there is an object in your player location");
-        System.out.println("Type 'inspect' to see an item description");
-        System.out.println("Use 'take' to put an item in your inventory");
-        System.out.println("Type 'use' to use a key to unlock a location");
-        System.out.println("Use 'say' <your answer> to resolve a puzzle");
-        System.out.println("Type 'quit' to exit.");
+        System.out.println(StringStyling.StyleString("Welcome to the Adventure Game !", Style.BOLD, Color.WHITE));
+        System.out.println();
+        System.out.println("Use 'move north/south/east/west' to move.");
+        System.out.println("Use 'help' to know which commands are usable.");
+        System.out.println("Use 'map' to see the map.");
+        System.out.println("Use 'look' to see if there is an object in your player location.");
+        System.out.println("Use 'inspect' to see an item description.");
+        System.out.println("Use 'take' to put an item in your inventory.");
+        System.out.println("Use 'use' to use a key to unlock a location.");
+        System.out.println("Use 'say answer' to resolve a puzzle.");
+        System.out.println("Use 'quit' to exit.");
+        System.out.println();
 
         while (true) {
             System.out.print("> ");
@@ -97,10 +102,10 @@ public class Game {
             if (input.equalsIgnoreCase("quit")) break;
 
             String result = commandRegistry.execute(input);
-            System.out.println(result);
+            System.out.println(StringStyling.StyleString(result, Style.BOLD, Color.WHITE));
         }
 
-        System.out.println("Thanks for playing!");
+        System.out.println(StringStyling.StyleString("Thanks for playing!", Style.BOLD, Color.WHITE));
         // end of game
     }
 

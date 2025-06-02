@@ -2,6 +2,9 @@ package command;
 
 import item.Item;
 import main.WorldMap;
+import utils.Color;
+import utils.StringStyling;
+import utils.Style;
 
 public class LookCommand extends Command implements ICommand{
     private WorldMap worldMap;
@@ -17,7 +20,7 @@ public class LookCommand extends Command implements ICommand{
         int col = this.worldMap.getPlayerCol();
         int row = this.worldMap.getPlayerRow();
         if (!(this.worldMap.getLocationAt(row, col).getItem() == null)){
-            System.out.println("There is an item in this Location");
+            System.out.println(StringStyling.StyleString("There is an item in this Location", Style.BOLD, Color.WHITE));
         }
         return "";
     }

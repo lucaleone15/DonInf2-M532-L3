@@ -3,6 +3,11 @@ package command;
 import item.Item;
 import main.WorldMap;
 import play.Inventory;
+import utils.Color;
+import utils.StringStyling;
+import utils.Style;
+
+import java.awt.*;
 
 public class TakeCommand extends Command implements ICommand{
     private WorldMap worldMap;
@@ -21,7 +26,7 @@ public class TakeCommand extends Command implements ICommand{
         if (!(this.worldMap.getLocationAt(row, col).getItem() == null)){
             this.inventory.addItem(this.worldMap.getLocationAt(row, col).getItem());
             this.worldMap.getLocationAt(row, col).removeItem();
-            System.out.println("The object has been added to your inventory.");
+            System.out.println(StringStyling.StyleString("The object has been added to your inventory.", Style.BOLD, Color.WHITE));
         }
         return "";
     }
