@@ -9,15 +9,9 @@ public class WorldMap {
 
     public WorldMap(int row, int col){
         map = new Location[row][col];
-        this.generateMap();
-    }
-
-    private void generateMap() {
-        map = new Location[4][3];
         WorldMapLocationGenerator worldMapLocationGenerator = new WorldMapLocationGenerator();
         worldMapLocationGenerator.generateWorldMapLocation(map);
     }
-
 
     public Location getLocation(int row, int column){
         return null;
