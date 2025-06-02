@@ -180,4 +180,7 @@ public class Game {
     public boolean isGameWon() {
         return inventory.hasItem("FinalKey");
     }
+    public Set<String> getVisitedLocations() {
+        return visitedLocations;
+    }
 }
