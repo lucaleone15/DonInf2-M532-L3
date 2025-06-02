@@ -20,8 +20,8 @@ public class WorldMap {
     public void addLocation(Location location, int row, int column){
 
     }
-    public Location getPlayerLocation(){
-        return null;
+    public Location getCurrentLocation() {
+        return map[playerRow][playerCol];
     }
 
     public boolean isValidPosition(int row, int col) {

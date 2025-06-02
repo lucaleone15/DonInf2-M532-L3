@@ -16,16 +16,16 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Game {
     private Player player;
     private WorldMap worldMap;
+    private Inventory inventory;
     private CommandRegistry commandRegistry;
     private Scanner scanner;
     private List<String> commandHistory = new ArrayList<>();
+    private Set<String> visitedLocations = new HashSet<>();
     private static final String SAVE_FILENAME = "savegame.txt";
 
 
@@ -40,7 +40,7 @@ public class Game {
         int col = 4;
 
         this.worldMap = new WorldMap(row, col);
-        Inventory inventory = new Inventory();
+        this.inventory = new Inventory(commandRegistry, worldMap, visitedLocations);
         this.player = new Player(inventory);
         this.worldMap.setPlayerLocation(0, 0);
         this.scanner = new java.util.Scanner(System.in);
@@ -73,7 +73,7 @@ public class Game {
         ));
 
         Command mapCommand = new MapCommand("map", "Use 'map' to see the map.", worldMap);
-        Command moveCommand = new MoveCommand("move", "Use 'move north/south/east/west' to move.", worldMap);
+        Command moveCommand = new MoveCommand("move", "Use 'move north/south/east/west' to move.", worldMap, visitedLocations);
         Command helpCommand = new HelpCommand("help", "Use 'help' to know which commands are usable.", commandRegistry);
         Command lookCommand = new LookCommand("look", "Use 'look' to see if there is an object in your player location.", worldMap);
         Command inspectCommand = new InspectCommand("inspect", "Use 'inspect' to see an item description.", inventory, scanner);
@@ -116,6 +116,9 @@ public class Game {
         System.out.println("Use 'quit' to exit.");
 
         while (true) {
+            if (inventory.hasItem("Teleport Crystal")) {
+                commandRegistry.register("teleport", new TeleportCommand("teleport", "Teleport to a known location.", worldMap, inventory, visitedLocations));
+            }
             System.out.println();
             System.out.print("> ");
             if (!scanner.hasNextLine()) break;
@@ -123,12 +126,12 @@ public class Game {
             String input = scanner.nextLine().trim();
             if (input.equalsIgnoreCase("quit")) break;
 
-            String result = commandRegistry.execute(input);
-            System.out.println(StringStyling.StyleString(result, Style.BOLD, Color.WHITE));
-
             if(input.equalsIgnoreCase("save")) {
                 saveGame();
                 System.out.println("Game saved.");
+            } else {
+                String result = commandRegistry.execute(input);
+                System.out.println(StringStyling.StyleString(result, Style.BOLD, Color.WHITE));
             }
 
             // enregistrer la commande dans l'historique sauf "save" et "quit"

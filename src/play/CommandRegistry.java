@@ -37,4 +37,8 @@ public class CommandRegistry {
         }
         return commands;
     }
+
+    public boolean isRegistered(String name) {
+        return commands.containsKey(name.toLowerCase());
+    }
 }

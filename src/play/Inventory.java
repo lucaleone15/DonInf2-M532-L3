@@ -1,25 +1,42 @@
 package play;
 
+import command.TeleportCommand;
 import item.Item;
 import item.Key;
+import main.WorldMap;
 import utils.Color;
 import utils.StringStyling;
 import utils.Style;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Inventory {
     private Map<String, Item> playerInventory = new HashMap<>();
+    private CommandRegistry commandRegistry;
+    private WorldMap worldMap;
+    private Set<String> visitedLocations;
+
+    public Inventory (CommandRegistry commandRegistry, WorldMap worldMap, Set<String> visitedLocations){
+        this.commandRegistry = commandRegistry;
+        this.worldMap = worldMap;
+        this.visitedLocations = visitedLocations;
+    }
 
 
-    public void addItem(Item item){
-        if (!(item == null)){
+    public void addItem(Item item) {
+        if (item != null) {
             playerInventory.put(item.getName(), item);
+
+            if (item.getName().equalsIgnoreCase("Teleport Crystal")) {
+                if (!commandRegistry.isRegistered("teleport")) {
+                    commandRegistry.register("teleport",
+                            new TeleportCommand("teleport", "Teleport to a known location.",
+                                    worldMap, this, visitedLocations));
+                }
+            }
         }
     }
+
 
     public void removeItem(Item item){
         playerInventory.remove(item.getName());
@@ -65,6 +82,10 @@ public class Inventory {
         } else {
             return null;
         }
+    }
+
+    public boolean hasItem(String name) {
+        return playerInventory.containsKey(name.toLowerCase());
     }
 
     public Map<String, Item> getPlayerInventory() {

@@ -6,12 +6,16 @@ import utils.Color;
 import utils.StringStyling;
 import utils.Style;
 
+import java.util.Set;
+
 public class MoveCommand extends Command implements ICommand {
     private WorldMap worldMap;
+    private Set<String> visitedLocations;
 
-    public MoveCommand(String verb, String description, WorldMap worldMap) {
+    public MoveCommand(String verb, String description, WorldMap worldMap, Set<String> visitedLocations) {
         super(verb, description);
         this.worldMap = worldMap;
+        this.visitedLocations = visitedLocations;
     }
 
     @Override
@@ -59,6 +63,10 @@ public class MoveCommand extends Command implements ICommand {
 
         // Déplacement réussi
         worldMap.setPlayerLocation(newRow, newCol);
+        Location current = worldMap.getCurrentLocation();
+        if (current != null) {
+            visitedLocations.add(current.getName());
+        }
         return destination.getDescription();
     }
 }
