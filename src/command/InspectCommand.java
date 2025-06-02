@@ -3,6 +3,9 @@ package command;
 import item.Item;
 import item.Letter;
 import play.Inventory;
+import utils.Color;
+import utils.StringStyling;
+import utils.Style;
 
 import java.util.Scanner;
 
@@ -19,7 +22,7 @@ public class InspectCommand extends Command implements ICommand {
     @Override
     public String execute(String instruction) {
         if (inventory.getPlayerInventory().isEmpty()) {
-            return "Your inventory is empty.";
+            return StringStyling.StyleString("Your inventory is empty.", Style.BOLD, Color.WHITE);
         }
 
         inventory.showInventory();
@@ -28,16 +31,16 @@ public class InspectCommand extends Command implements ICommand {
         String itemName = scanner.nextLine().trim();
 
         if (itemName.isEmpty()) {
-            return "You did not enter any item name.";
+            return StringStyling.StyleStringBright("You did not enter any item name.", Style.BOLD, Color.WHITE, Color.RED);
         }
 
         Item item = inventory.getItem(itemName);
         if (item == null) {
-            return "You don't have any item named '" + itemName + "' in your inventory.";
+            return StringStyling.StyleString("You don't have any item named '" + itemName + "' in your inventory.", Style.BOLD, Color.RED);
         }
 
         String description = item.getDescription();
-        return description != null ? description : "No description available for this item.";
+        return description != null ? description : StringStyling.StyleString("No description available for this item.", Style.BOLD, Color.WHITE);
     }
 }
 

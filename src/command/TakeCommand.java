@@ -26,7 +26,7 @@ public class TakeCommand extends Command implements ICommand{
         if (!(this.worldMap.getLocationAt(row, col).getItem() == null)){
             this.inventory.addItem(this.worldMap.getLocationAt(row, col).getItem());
             this.worldMap.getLocationAt(row, col).removeItem();
-            System.out.println(StringStyling.StyleString("The object has been added to your inventory.", Style.BOLD, Color.WHITE));
+            System.out.println(StringStyling.StyleString("The object has been added to your inventory.", Style.BOLD, Color.GREEN));
         }
         return "";
     }

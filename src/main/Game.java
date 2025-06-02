@@ -110,7 +110,7 @@ public class Game {
             if (input.equalsIgnoreCase("quit")) break;
 
             String result = commandRegistry.execute(input);
-            System.out.println(StringStyling.StyleString(result, Style.BOLD, Color.WHITE));
+            System.out.println(result);
         }
 
         System.out.println(StringStyling.StyleString("Thanks for playing!", Style.BOLD, Color.WHITE));

@@ -2,6 +2,9 @@ package play;
 
 import item.Item;
 import item.Key;
+import utils.Color;
+import utils.StringStyling;
+import utils.Style;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,7 +31,7 @@ public class Inventory {
 
     public void showKeys() {
         if (playerInventory.isEmpty()) {
-            System.out.println("You have no keys.");
+            System.out.println(StringStyling.StyleString("You have no keys.", Style.BOLD, Color.WHITE));
             return;
         }
         boolean hasKey = false;
@@ -40,13 +43,13 @@ public class Inventory {
             }
         }
         if (!hasKey) {
-            System.out.println("You have no keys.");
+            System.out.println(StringStyling.StyleString("You have no keys.", Style.BOLD, Color.WHITE));
         }
     }
 
 
     public void showInventory() {
-        System.out.println("Inventory:");
+        System.out.println(StringStyling.StyleString("Inventory:", Style.BOLD, Color.WHITE));
         if (playerInventory.isEmpty()) {
             System.out.println(" - (empty)");
         } else {

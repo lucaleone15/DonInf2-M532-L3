@@ -1,6 +1,9 @@
 package play;
 
 import command.Command;
+import utils.Color;
+import utils.StringStyling;
+import utils.Style;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,7 +24,7 @@ public class CommandRegistry {
 
         Command command = commands.get(keyword);
         if (command == null) {
-            return "Unknown command: " + keyword;
+            return StringStyling.StyleStringBright("Unknown command: " + keyword, Style.BOLD, Color.WHITE, Color.RED);
         }
 
         return command.execute(args);
@@ -29,7 +32,7 @@ public class CommandRegistry {
 
     public Map<String, Command> getCommands() {
         for(Map. Entry<String, Command> commands : commands.entrySet()){
-            System.out.println(commands.getKey() + ": " + commands.getValue().getDescription());
+            System.out.println(commands.getKey() + " : " + commands.getValue().getDescription());
         }
         return commands;
     }

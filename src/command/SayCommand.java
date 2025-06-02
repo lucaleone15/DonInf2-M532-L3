@@ -6,6 +6,9 @@ import item.Puzzle;
 import main.Location;
 import main.WorldMap;
 import play.Inventory;
+import utils.Color;
+import utils.StringStyling;
+import utils.Style;
 
 import java.util.List;
 
@@ -28,19 +31,19 @@ public class SayCommand extends Command implements ICommand {
 
         for (Puzzle puzzle : puzzles) {
             if (puzzle.isSolved()) {
-                return "You already solved this puzzle.";
+                return StringStyling.StyleStringBright("You already solved this puzzle.", Style.BOLD, Color.WHITE, Color.RED);
             }
 
             boolean success = puzzle.attempt(instruction);
             if (success) {
                 inventory.addItem(puzzle.getReward());
-                return "Correct! You solved the puzzle and obtained: " + puzzle.getReward().getName();
+                return StringStyling.StyleString("Correct! You solved the puzzle and obtained: " + puzzle.getReward().getName(), Style.BOLD, Color.GREEN);
             } else {
-                return "That's not the correct answer.";
+                return StringStyling.StyleString("That's not the correct answer.", Style.BOLD, Color.RED);
             }
 
         }
 
-        return "There is no puzzle to solve here.";
+        return StringStyling.StyleString("There is no puzzle to solve here.", Style.BOLD, Color.WHITE);
     }
 }

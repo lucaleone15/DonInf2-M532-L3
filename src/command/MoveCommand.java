@@ -2,6 +2,9 @@ package command;
 
 import main.Location;
 import main.WorldMap;
+import utils.Color;
+import utils.StringStyling;
+import utils.Style;
 
 public class MoveCommand extends Command implements ICommand {
     private WorldMap worldMap;
@@ -14,7 +17,7 @@ public class MoveCommand extends Command implements ICommand {
     @Override
     public String execute(String args) {
         if (args == null || args.isEmpty()) {
-            return "Please specify a direction (north, south, east, west).";
+            return StringStyling.StyleString("Please specify a direction (north, south, east, west).", Style.BOLD, Color.WHITE);
         }
 
         int currentRow = worldMap.getPlayerRow();
@@ -37,21 +40,21 @@ public class MoveCommand extends Command implements ICommand {
                 newCol = currentCol - 1;
                 break;
             default:
-                return "Unknown direction. Use north, south, east or west.";
+                return StringStyling.StyleStringBright("Unknown direction. Use north, south, east or west.", Style.BOLD, Color.WHITE, Color.RED);
         }
 
         // Vérifie si la nouvelle position est valide
         if (!worldMap.isValidPosition(newRow, newCol)) {
-            return "Impossible to move there.";
+            return StringStyling.StyleStringBright("Impossible to move there.", Style.BOLD, Color.WHITE, Color.RED);
         }
 
         Location destination = worldMap.getLocationAt(newRow, newCol);
         if (destination == null) {
-            return "Impossible to move there.";
+            return StringStyling.StyleStringBright("Impossible to move there.", Style.BOLD, Color.WHITE, Color.RED);
         }
 
         if (destination.isLocked()) {
-            return "Zone locked.";
+            return StringStyling.StyleString("Zone locked.", Style.BOLD, Color.RED);
         }
 
         // Déplacement réussi

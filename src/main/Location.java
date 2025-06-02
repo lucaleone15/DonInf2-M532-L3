@@ -2,7 +2,10 @@ package main;
 
 import item.Item;
 import item.Key;
+import utils.Color;
 import utils.IPrintable;
+import utils.StringStyling;
+import utils.Style;
 
 public class Location implements IPrintable {
     private String name;
@@ -33,7 +36,7 @@ public class Location implements IPrintable {
 
     public Item getItem() {
         if (item == null) {
-            System.out.println("No item in this location");
+            System.out.println(StringStyling.StyleString("No item in this location", Style.BOLD, Color.WHITE));
         }
         return this.item;
     }

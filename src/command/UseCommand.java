@@ -4,6 +4,9 @@ import item.Item;
 import main.Location;
 import main.WorldMap;
 import play.Inventory;
+import utils.Color;
+import utils.StringStyling;
+import utils.Style;
 
 import java.util.Scanner;
 
@@ -27,13 +30,13 @@ public class UseCommand extends Command implements ICommand {
         if (keyName.isEmpty()) {
             System.out.println("Your keys:");
             inventory.showKeys(); // Méthode à créer pour n’afficher QUE les clés, pas les autres items
-            System.out.print("Enter the name of the key you want to use: ");
+            System.out.print("Enter the name of the key you want to use : ");
             keyName = scanner.nextLine().trim();
         }
 
         Item key = inventory.getItem(keyName);
         if (key == null) {
-            return "You don't have the key '" + keyName + "' in your inventory.";
+            return StringStyling.StyleStringBright("You don't have the key '" + keyName + "' in your inventory.", Style.BOLD, Color.WHITE, Color.RED);
         }
 
         int playerRow = worldMap.getPlayerRow();
@@ -49,11 +52,11 @@ public class UseCommand extends Command implements ICommand {
                 if (loc != null && loc.isLocked() && loc.canBeUnlockedWith(key)) {
                     loc.unlock();
                     inventory.removeItemByName(keyName);
-                    return "You used the key '" + keyName + "' to unlock the " + loc.getName() + ".";
+                    return StringStyling.StyleString("You used the key '" + keyName + "' to unlock the " + loc.getName() + ".", Style.BOLD, Color.GREEN);
                 }
             }
         }
 
-        return "There is no locked location nearby that can be unlocked with the key '" + keyName + "'.";
+        return StringStyling.StyleStringBright("There is no locked location nearby that can be unlocked with the key '" + keyName + "'.", Style.BOLD, Color.WHITE, Color.RED);
     }
 }
