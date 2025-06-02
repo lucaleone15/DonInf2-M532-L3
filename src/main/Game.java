@@ -48,7 +48,6 @@ public class Game {
 
 
         List<Puzzle> puzzles = new ArrayList<>();
-        // PuzzleManager.java
         puzzles.add(new Puzzle(
                 "More you take, more you leave behind.",
                 "footsteps",

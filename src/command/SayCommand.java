@@ -23,24 +23,15 @@ public class SayCommand extends Command implements ICommand {
 
     @Override
     public String execute(String instruction) {
-        int row = worldMap.getPlayerRow();
-        int col = worldMap.getPlayerCol();
-
         for (Puzzle puzzle : puzzles) {
-            if (puzzle.isSolved()) {
-                return "You already solved this puzzle.";
+            if (!puzzle.isSolved()) {
+                boolean success = puzzle.attempt(instruction);
+                if (success) {
+                    inventory.addItem(puzzle.getReward());
+                    return "Correct! You solved the puzzle and obtained: " + puzzle.getReward().getName();
+                }
             }
-
-            boolean success = puzzle.attempt(instruction);
-            if (success) {
-                inventory.addItem(puzzle.getReward());
-                return "Correct! You solved the puzzle and obtained: " + puzzle.getReward().getName();
-            } else {
-                return "That's not the correct answer.";
-            }
-
         }
-
-        return "There is no puzzle to solve here.";
+        return "That's not the correct answer to any remaining puzzle.";
     }
 }

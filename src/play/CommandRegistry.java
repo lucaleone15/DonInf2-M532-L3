@@ -15,12 +15,13 @@ public class CommandRegistry {
     }
 
     public String execute(String input) {
+
         String[] parts = input.strip().split(" ", 2);
         String keyword = parts[0].toLowerCase();
         String args = parts.length > 1 ? parts[1] : "";
 
         Command command = commands.get(keyword);
-        if (command == null) {
+        if (command == null && input != "save") {
             return "Unknown command: " + keyword;
         }
 
