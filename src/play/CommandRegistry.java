@@ -27,9 +27,8 @@ public class CommandRegistry {
 
         if (command == null) {
             return StringStyling.StyleStringBright("Unknown command: " + keyword, Style.BOLD, Color.WHITE, Color.RED);
-
-        return command.execute(args);
         }
+        return command.execute(args);
     }
 
     public Map<String, Command> getCommands() {

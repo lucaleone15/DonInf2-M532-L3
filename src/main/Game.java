@@ -114,9 +114,9 @@ public class Game {
         System.out.println("Use 'use' to use a key to unlock a location.");
         System.out.println("Use 'say answer' to resolve a puzzle.");
         System.out.println("Use 'quit' to exit.");
-        System.out.println();
 
         while (true) {
+            System.out.println();
             System.out.print("> ");
             if (!scanner.hasNextLine()) break;
 
