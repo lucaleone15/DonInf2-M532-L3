@@ -29,8 +29,8 @@ public class Game {
     public void initialization() {
 
         // Initialization of the map and of the player
-        int row = 3;
-        int col = 3;
+        int row = 4;
+        int col = 4;
 
         this.worldMap = new WorldMap(row, col);
         Inventory inventory = new Inventory();
