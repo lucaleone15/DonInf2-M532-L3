@@ -18,16 +18,18 @@ public class CommandRegistry {
     }
 
     public String execute(String input) {
+
         String[] parts = input.strip().split(" ", 2);
         String keyword = parts[0].toLowerCase();
         String args = parts.length > 1 ? parts[1] : "";
 
         Command command = commands.get(keyword);
+
         if (command == null) {
             return StringStyling.StyleStringBright("Unknown command: " + keyword, Style.BOLD, Color.WHITE, Color.RED);
-        }
 
         return command.execute(args);
+        }
     }
 
     public Map<String, Command> getCommands() {

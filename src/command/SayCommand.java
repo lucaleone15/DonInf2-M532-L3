@@ -26,24 +26,18 @@ public class SayCommand extends Command implements ICommand {
 
     @Override
     public String execute(String instruction) {
-        int row = worldMap.getPlayerRow();
-        int col = worldMap.getPlayerCol();
-
         for (Puzzle puzzle : puzzles) {
-            if (puzzle.isSolved()) {
+
+            if (!puzzle.isSolved()) {
+                boolean success = puzzle.attempt(instruction);
+                if (success) {
+                    inventory.addItem(puzzle.getReward());
+                    return StringStyling.StyleString("Correct! You solved the puzzle and obtained: " + puzzle.getReward().getName(), Style.BOLD, Color.GREEN);
+                }
+            } else {
                 return StringStyling.StyleStringBright("You already solved this puzzle.", Style.BOLD, Color.WHITE, Color.RED);
             }
-
-            boolean success = puzzle.attempt(instruction);
-            if (success) {
-                inventory.addItem(puzzle.getReward());
-                return StringStyling.StyleString("Correct! You solved the puzzle and obtained: " + puzzle.getReward().getName(), Style.BOLD, Color.GREEN);
-            } else {
-                return StringStyling.StyleString("That's not the correct answer.", Style.BOLD, Color.RED);
-            }
-
         }
-
-        return StringStyling.StyleString("There is no puzzle to solve here.", Style.BOLD, Color.WHITE);
+        return StringStyling.StyleString("That's not the correct answer.", Style.BOLD, Color.RED);
     }
 }

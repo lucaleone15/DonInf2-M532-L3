@@ -11,6 +11,11 @@ import utils.Color;
 import utils.StringStyling;
 import utils.Style;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -20,6 +25,8 @@ public class Game {
     private WorldMap worldMap;
     private CommandRegistry commandRegistry;
     private Scanner scanner;
+    private List<String> commandHistory = new ArrayList<>();
+    private static final String SAVE_FILENAME = "savegame.txt";
 
 
     public Game(){
@@ -39,8 +46,8 @@ public class Game {
         this.scanner = new java.util.Scanner(System.in);
         this.commandRegistry = new CommandRegistry();
 
+
         List<Puzzle> puzzles = new ArrayList<>();
-        // PuzzleManager.java
         puzzles.add(new Puzzle(
                 "More you take, more you leave behind.",
                 "footsteps",
@@ -88,6 +95,13 @@ public class Game {
         //System.out.println("Running game...");
         // your runtime code here...
         this.initialization();
+        System.out.println("Do you want to (1) start a new game or (2) load last save?");
+        String choice = scanner.nextLine();
+        if(choice.equals("2")) {
+            loadSave();
+        } else {
+            initialization();
+        }
 
         System.out.println(StringStyling.StyleString("Welcome to the Adventure Game !", Style.BOLD, Color.WHITE));
         System.out.println();
@@ -110,11 +124,45 @@ public class Game {
             if (input.equalsIgnoreCase("quit")) break;
 
             String result = commandRegistry.execute(input);
-            System.out.println(result);
+            System.out.println(StringStyling.StyleString(result, Style.BOLD, Color.WHITE));
+
+            if(input.equalsIgnoreCase("save")) {
+                saveGame();
+                System.out.println("Game saved.");
+            }
+
+            // enregistrer la commande dans l'historique sauf "save" et "quit"
+            commandHistory.add(input);
         }
 
         System.out.println(StringStyling.StyleString("Thanks for playing!", Style.BOLD, Color.WHITE));
         // end of game
+    }
+
+    private void saveGame() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(SAVE_FILENAME))) {
+            for(String cmd : commandHistory) {
+                writer.write(cmd);
+                writer.newLine();
+            }
+        } catch(IOException e) {
+            System.out.println("Error saving game: " + e.getMessage());
+        }
+    }
+
+    private void loadSave() {
+        try {
+            List<String> savedCommands = Files.readAllLines(Paths.get(SAVE_FILENAME));
+            initialization();
+            for(String cmd : savedCommands) {
+                commandHistory.add(cmd);
+                commandRegistry.execute(cmd);
+            }
+            System.out.println("Save loaded.");
+        } catch(IOException e) {
+            System.out.println("No save file found, starting new game.");
+            initialization();
+        }
     }
 
 }
