@@ -25,27 +25,20 @@ public class SayCommand extends Command implements ICommand {
     public String execute(String instruction) {
         int row = worldMap.getPlayerRow();
         int col = worldMap.getPlayerCol();
-        Location currentLocation = worldMap.getLocationAt(row, col);
 
-        if (currentLocation == null) {
-            return "You are not in a valid location.";
-        }
-
-        String locationName = currentLocation.getName();
         for (Puzzle puzzle : puzzles) {
-            if (puzzle.getLocationName().equalsIgnoreCase(locationName)) {
-                if (puzzle.isSolved()) {
-                    return "You already solved this puzzle.";
-                }
-
-                boolean success = puzzle.attempt(instruction);
-                if (success) {
-                    inventory.addItem(puzzle.getReward());
-                    return "Correct! You solved the puzzle and obtained: " + puzzle.getReward().getName();
-                } else {
-                    return "That's not the correct answer.";
-                }
+            if (puzzle.isSolved()) {
+                return "You already solved this puzzle.";
             }
+
+            boolean success = puzzle.attempt(instruction);
+            if (success) {
+                inventory.addItem(puzzle.getReward());
+                return "Correct! You solved the puzzle and obtained: " + puzzle.getReward().getName();
+            } else {
+                return "That's not the correct answer.";
+            }
+
         }
 
         return "There is no puzzle to solve here.";

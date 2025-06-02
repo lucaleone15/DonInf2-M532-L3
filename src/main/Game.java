@@ -42,20 +42,28 @@ public class Game {
         List<Puzzle> puzzles = new ArrayList<>();
         // PuzzleManager.java
         puzzles.add(new Puzzle(
-                "Tower Gate",
-                "What has keys but can’t open locks, has space but no room, and you can enter but not go outside?",
-                "keyboard",
-                new Key("tower", "A metallic key with a T engraved.")
+                "More you take, more you leave behind.",
+                "footsteps",
+                new Key("tower", "A heavy iron key to open the ancient Tower.")
         ));
 
         puzzles.add(new Puzzle(
-                "Crypt Entrance",
-                "The more you take, the more you leave behind. What am I?",
-                "footsteps",
-                new Key("crypt", "An old iron key covered in dust.")
+                "I speak without a mouth and hear without ears...",
+                "echo",
+                new Key("crypt", "A rusty iron key engraved with the word 'crypt'.")
         ));
 
+        puzzles.add(new Puzzle(
+                "What has keys but can't open locks?",
+                "piano",
+                new Key("sanctuary", "A polished silver key with music symbols.")
+        ));
 
+        puzzles.add(new Puzzle(
+                "I have cities, but no houses. I have mountains, but no trees...",
+                "map",
+                new Key("cave", "An ancient key shaped like a compass.")
+        ));
 
         Command mapCommand = new MapCommand("map", "Use 'map' to see the map.", worldMap);
         Command moveCommand = new MoveCommand("move", "Use 'move north/south/east/west' to move.", worldMap);
