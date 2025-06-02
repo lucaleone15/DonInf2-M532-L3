@@ -1,27 +1,43 @@
 package item;
 
-import main.Location;
+import item.Item;
 
 public class Puzzle {
-    private String question;
+    private String locationName; // le nom de la zone concernée
+    private String riddle;
     private String answer;
-    private String targetLocationName;
+    private Item reward;
+    private boolean solved;
 
-    public Puzzle(String question, String answer, String targetLocationName) {
-        this.question = question;
-        this.answer = answer.toLowerCase(); // pour simplifier la comparaison
-        this.targetLocationName = targetLocationName;
+    public Puzzle(String locationName, String riddle, String answer, Item reward) {
+        this.locationName = locationName;
+        this.riddle = riddle;
+        this.answer = answer.toLowerCase(); // pour comparaison insensible à la casse
+        this.reward = reward;
+        this.solved = false;
     }
 
-    public boolean tryAnswer(String playerAnswer) {
-        return this.answer.equals(playerAnswer.toLowerCase());
+    public boolean attempt(String response) {
+        if (!solved && response.toLowerCase().equals(answer)) {
+            solved = true;
+            return true;
+        }
+        return false;
     }
 
-    public String getTargetLocationName() {
-        return this.targetLocationName;
+    public boolean isSolved() {
+        return solved;
     }
 
-    public String getQuestion() {
-        return this.question;
+    public String getLocationName() {
+        return locationName;
+    }
+
+    public String getRiddle() {
+        return riddle;
+    }
+
+    public Item getReward() {
+        return reward;
     }
 }

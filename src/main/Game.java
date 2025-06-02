@@ -2,6 +2,7 @@ package main;
 
 
 import command.*;
+import item.Key;
 import item.Puzzle;
 import play.CommandRegistry;
 import play.Inventory;
@@ -34,13 +35,24 @@ public class Game {
         this.worldMap.setPlayerLocation(0, 0);
         this.scanner = new java.util.Scanner(System.in);
         this.commandRegistry = new CommandRegistry();
-        List<Puzzle> puzzleList = new ArrayList<>();
 
-        puzzleList.add(new Puzzle(
+        List<Puzzle> puzzles = new ArrayList<>();
+        // PuzzleManager.java
+        puzzles.add(new Puzzle(
+                "Tower Gate",
+                "What has keys but can’t open locks, has space but no room, and you can enter but not go outside?",
+                "keyboard",
+                new Key("tower", "A metallic key with a T engraved.")
+        ));
+
+        puzzles.add(new Puzzle(
+                "Crypt Entrance",
                 "The more you take, the more you leave behind. What am I?",
                 "footsteps",
-                "crypt"
+                new Key("crypt", "An old iron key covered in dust.")
         ));
+
+
 
         Command mapCommand = new MapCommand("map", "Type 'map' to see the map.", worldMap);
         Command moveCommand = new MoveCommand("move", "Use 'move <north|south|east|west>' to move your player", worldMap);
@@ -49,7 +61,7 @@ public class Game {
         Command inspectCommand = new InspectCommand("inspect", "Type 'inspect' to see an item description", inventory, scanner);
         Command takeCommand = new TakeCommand("Take", "Use 'take' to put an item in your inventory", worldMap, inventory);
         Command useCommand = new UseCommand("Use", "Type 'use' to use a key to unlock a location", worldMap, inventory, scanner);
-        Command sayCommand = new SayCommand("say", "Use 'say' <your answer> to resolve a puzzle", puzzleList, worldMap);
+        Command sayCommand = new SayCommand("say", "Use 'say' <your answer> to resolve a puzzle", worldMap, inventory, puzzles);
         this.commandRegistry.register("move", moveCommand);
         this.commandRegistry.register("help", helpCommand);
         this.commandRegistry.register("map", mapCommand);

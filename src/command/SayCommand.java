@@ -1,37 +1,53 @@
 package command;
 
+import command.Command;
+import command.ICommand;
 import item.Puzzle;
 import main.Location;
 import main.WorldMap;
+import play.Inventory;
 
 import java.util.List;
 
-public class SayCommand extends Command implements ICommand{
-    private List<Puzzle> puzzleList;
+public class SayCommand extends Command implements ICommand {
     private WorldMap worldMap;
+    private Inventory inventory;
+    private List<Puzzle> puzzles;
 
-    public SayCommand(String name, String description, List<Puzzle> puzzleList, WorldMap worldMap) {
-        super(name, description);
-        this.puzzleList = puzzleList;
+    public SayCommand(String verb, String description, WorldMap worldMap, Inventory inventory, List<Puzzle> puzzles) {
+        super(verb, description);
         this.worldMap = worldMap;
+        this.inventory = inventory;
+        this.puzzles = puzzles;
     }
 
     @Override
-    public String execute(String input) {
-        for (Puzzle puzzle : puzzleList) {
-            if (puzzle.tryAnswer(input)) {
-                Location loc = worldMap.getLocationByName(puzzle.getTargetLocationName());
-                if (loc == null) {
-                    return "Error: target location '" + puzzle.getTargetLocationName() + "' not found.";
+    public String execute(String instruction) {
+        int row = worldMap.getPlayerRow();
+        int col = worldMap.getPlayerCol();
+        Location currentLocation = worldMap.getLocationAt(row, col);
+
+        if (currentLocation == null) {
+            return "You are not in a valid location.";
+        }
+
+        String locationName = currentLocation.getName();
+        for (Puzzle puzzle : puzzles) {
+            if (puzzle.getLocationName().equalsIgnoreCase(locationName)) {
+                if (puzzle.isSolved()) {
+                    return "You already solved this puzzle.";
                 }
-                if (!loc.isLocked()) {
-                    return "That riddle was already solved. The location is already open.";
+
+                boolean success = puzzle.attempt(instruction);
+                if (success) {
+                    inventory.addItem(puzzle.getReward());
+                    return "Correct! You solved the puzzle and obtained: " + puzzle.getReward().getName();
+                } else {
+                    return "That's not the correct answer.";
                 }
-                loc.unlock();
-                return "Correct! You solved the riddle. '" + loc.getName() + "' is now unlocked.";
             }
         }
-        return "That doesn't seem to solve anything.";
+
+        return "There is no puzzle to solve here.";
     }
 }
-
