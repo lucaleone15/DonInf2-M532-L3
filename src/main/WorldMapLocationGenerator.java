@@ -1,6 +1,5 @@
 package main;
 
-import item.Crystal;
 import item.Item;
 import item.Key;
 import item.Letter;
@@ -28,16 +27,15 @@ public class WorldMapLocationGenerator {
 
         map[3][0] = new Location("Lake", "A serene lake with something glimmering beneath.", false, new Letter("A wet scroll", "I have cities, but no houses. I have mountains, but no trees..."), null);
 
-        // Here we add the Teleport Crystal in the Cabin location (map[3][1])
         map[3][1] = new Location(
                 "Cabin",
                 "A near-collapsing wooden shack filled with scattered notes. Something magical glows faintly here.",
                 false,
-                new Crystal("Teleport Crystal", "A glowing crystal that allows teleportation to visited locations."),
+                new Item("Teleport Crystal", "A glowing crystal that allows teleportation to visited locations."),
                 null
         );
 
-        map[3][2] = new Location("Sealed Cavern", "A cave sealed by an iron gate with glowing runes.", true, null, new Key("cave", "An ancient key shaped like a compass."));
+        map[3][2] = new Location("Sealed Cavern", "A cave sealed by an iron gate with glowing runes.", true, new Key("FinalKey", "The ultimate key to finish your quest."), new Key("cave", "An ancient key shaped like a compass."));
         map[3][3] = new Location("Cemetery", "An overgrown graveyard covered in mist. Nothing of use here.", false, null, null);
     }
 

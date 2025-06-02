@@ -31,14 +31,18 @@ public class CommandRegistry {
         return command.execute(args);
     }
 
-    public Map<String, Command> getCommands() {
+    public void printAllCommands() {
         for(Map. Entry<String, Command> commands : commands.entrySet()){
             System.out.println(commands.getKey() + " : " + commands.getValue().getDescription());
         }
+    }
+
+    public Map<String, Command> getCommands() {
         return commands;
     }
 
-    public boolean isRegistered(String name) {
-        return commands.containsKey(name.toLowerCase());
+    public boolean isRegistered(String verb) {
+        return commands.containsKey(verb.toLowerCase());
     }
+
 }

@@ -40,10 +40,13 @@ public class Game {
         int col = 4;
 
         this.worldMap = new WorldMap(row, col);
-        this.inventory = new Inventory(commandRegistry, worldMap, visitedLocations);
+        Location current = worldMap.getCurrentLocation();
+        if (current != null) {
+            visitedLocations.add(current.getName());
+        }
+        this.inventory = new Inventory();
         this.player = new Player(inventory);
         this.worldMap.setPlayerLocation(0, 0);
-        this.scanner = new java.util.Scanner(System.in);
         this.commandRegistry = new CommandRegistry();
 
 
@@ -74,12 +77,13 @@ public class Game {
 
         Command mapCommand = new MapCommand("map", "Use 'map' to see the map.", worldMap);
         Command moveCommand = new MoveCommand("move", "Use 'move north/south/east/west' to move.", worldMap, visitedLocations);
-        Command helpCommand = new HelpCommand("help", "Use 'help' to know which commands are usable.", commandRegistry);
+        Command helpCommand = new HelpCommand("help", "Use 'help' to know which commands are usable.", commandRegistry, inventory);
         Command lookCommand = new LookCommand("look", "Use 'look' to see if there is an object in your player location.", worldMap);
         Command inspectCommand = new InspectCommand("inspect", "Use 'inspect' to see an item description.", inventory, scanner);
         Command takeCommand = new TakeCommand("Take", "Use 'take' to put an item in your inventory.", worldMap, inventory);
         Command useCommand = new UseCommand("Use", "Use 'use' to use a key to unlock a location.", worldMap, inventory, scanner);
         Command sayCommand = new SayCommand("say", "Use 'say answer' to resolve a puzzle.", worldMap, inventory, puzzles);
+        Command teleportCommand = new TeleportCommand("teleport", "Use 'teleport' to go to a known location.", worldMap, inventory, visitedLocations);
         this.commandRegistry.register("move", moveCommand);
         this.commandRegistry.register("help", helpCommand);
         this.commandRegistry.register("map", mapCommand);
@@ -88,13 +92,17 @@ public class Game {
         this.commandRegistry.register("take", takeCommand);
         this.commandRegistry.register("use", useCommand);
         this.commandRegistry.register("say", sayCommand);
+        commandRegistry.register("teleport", teleportCommand);
     }
 
 
     public void run() {
         //System.out.println("Running game...");
         // your runtime code here...
-        this.initialization();
+        this.scanner = new Scanner(System.in);
+
+        System.out.println(StringStyling.StyleString("Welcome to the Adventure Game !", Style.BOLD, Color.WHITE));
+
         System.out.println("Do you want to (1) start a new game or (2) load last save?");
         String choice = scanner.nextLine();
         if(choice.equals("2")) {
@@ -103,7 +111,6 @@ public class Game {
             initialization();
         }
 
-        System.out.println(StringStyling.StyleString("Welcome to the Adventure Game !", Style.BOLD, Color.WHITE));
         System.out.println();
         System.out.println("Use 'move north/south/east/west' to move.");
         System.out.println("Use 'help' to know which commands are usable.");
@@ -114,11 +121,9 @@ public class Game {
         System.out.println("Use 'use' to use a key to unlock a location.");
         System.out.println("Use 'say answer' to resolve a puzzle.");
         System.out.println("Use 'quit' to exit.");
+        System.out.println();
 
         while (true) {
-            if (inventory.hasItem("Teleport Crystal")) {
-                commandRegistry.register("teleport", new TeleportCommand("teleport", "Teleport to a known location.", worldMap, inventory, visitedLocations));
-            }
             System.out.println();
             System.out.print("> ");
             if (!scanner.hasNextLine()) break;
@@ -132,6 +137,11 @@ public class Game {
             } else {
                 String result = commandRegistry.execute(input);
                 System.out.println(StringStyling.StyleString(result, Style.BOLD, Color.WHITE));
+            }
+
+            if (isGameWon()) {
+                System.out.println("\n🎉 Congratulations! You completed the game! 🎉");
+                break;
             }
 
             // enregistrer la commande dans l'historique sauf "save" et "quit"
@@ -167,5 +177,7 @@ public class Game {
             initialization();
         }
     }
-
+    public boolean isGameWon() {
+        return inventory.hasItem("FinalKey");
+    }
 }

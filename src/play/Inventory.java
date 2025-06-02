@@ -12,28 +12,10 @@ import java.util.*;
 
 public class Inventory {
     private Map<String, Item> playerInventory = new HashMap<>();
-    private CommandRegistry commandRegistry;
-    private WorldMap worldMap;
-    private Set<String> visitedLocations;
-
-    public Inventory (CommandRegistry commandRegistry, WorldMap worldMap, Set<String> visitedLocations){
-        this.commandRegistry = commandRegistry;
-        this.worldMap = worldMap;
-        this.visitedLocations = visitedLocations;
-    }
-
 
     public void addItem(Item item) {
         if (item != null) {
             playerInventory.put(item.getName(), item);
-
-            if (item.getName().equalsIgnoreCase("Teleport Crystal")) {
-                if (!commandRegistry.isRegistered("teleport")) {
-                    commandRegistry.register("teleport",
-                            new TeleportCommand("teleport", "Teleport to a known location.",
-                                    worldMap, this, visitedLocations));
-                }
-            }
         }
     }
 
@@ -85,7 +67,7 @@ public class Inventory {
     }
 
     public boolean hasItem(String name) {
-        return playerInventory.containsKey(name.toLowerCase());
+        return playerInventory.containsKey(name);
     }
 
     public Map<String, Item> getPlayerInventory() {
