@@ -4,6 +4,9 @@ import item.Item;
 import main.Location;
 import main.WorldMap;
 import play.Inventory;
+import utils.Color;
+import utils.StringStyling;
+import utils.Style;
 
 import java.util.Set;
 
@@ -22,22 +25,22 @@ public class TeleportCommand extends Command implements ICommand {
     @Override
     public String execute(String instruction) {
         if (!inventory.hasItem("Teleport Crystal")) {
-            return "You need the Teleport Crystal to use this command.";
+            return StringStyling.StyleStringBright("You need the Teleport Crystal to use this command.", Style.BOLD, Color.WHITE, Color.RED);
         }
 
         if (visitedLocations.isEmpty()) {
-            return "You have not visited any locations yet.";
+            return StringStyling.StyleStringBright("You have not visited any locations yet.", Style.BOLD, Color.WHITE, Color.RED);
         }
 
         // Affiche la liste des lieux visités
-        StringBuilder sb = new StringBuilder("Visited locations:\n");
+        StringBuilder sb = new StringBuilder(StringStyling.StyleString("Visited locations:\n", Style.BOLD, Color.WHITE));
         for (String locName : visitedLocations) {
             sb.append("- ").append(locName).append("\n");
         }
 
         // Si aucune destination spécifiée, on affiche la liste et demande la destination
         if (instruction == null || instruction.trim().isEmpty()) {
-            sb.append("Please specify a location to teleport to.");
+            sb.append(StringStyling.StyleString("Please specify a location to teleport to.", Style.BOLD, Color.WHITE));
             return sb.toString();
         }
 
@@ -52,7 +55,7 @@ public class TeleportCommand extends Command implements ICommand {
             }
         }
         if (!visited) {
-            return sb.toString() + "You haven't visited this location yet.";
+            return sb.toString() + StringStyling.StyleString("You haven't visited this location yet.", Style.BOLD, Color.WHITE);
         }
 
         // Cherche la location dans la map
@@ -61,11 +64,11 @@ public class TeleportCommand extends Command implements ICommand {
                 Location loc = worldMap.getMap()[row][col];
                 if (loc != null && loc.getName().trim().equalsIgnoreCase(destinationName)) {
                     worldMap.setPlayerLocation(row, col);
-                    return sb.toString() + "You teleported to " + loc.getName() + ".";
+                    return sb.toString() + StringStyling.StyleString("You teleported to " + loc.getName() + ".", Style.BOLD, Color.GREEN);
                 }
             }
         }
 
-        return sb.toString() + "Unknown location.";
+        return sb.toString() + StringStyling.StyleStringBright("Unknown location.", Style.BOLD, Color.WHITE, Color.RED);
     }
 }

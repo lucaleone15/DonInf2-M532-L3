@@ -140,7 +140,7 @@ public class Game {
             }
 
             if (isGameWon()) {
-                System.out.println("\n🎉 Congratulations! You completed the game! 🎉");
+                System.out.println(StringStyling.StyleStringBright("\n🎉 Congratulations! You completed the game! 🎉", Style.BOLD, Color.WHITE, Color.GREEN));
                 break;
             }
 
@@ -148,7 +148,7 @@ public class Game {
             commandHistory.add(input);
         }
 
-        System.out.println(StringStyling.StyleString("Thanks for playing!", Style.BOLD, Color.WHITE));
+        System.out.println(StringStyling.StyleString("Thanks for playing !", Style.BOLD, Color.WHITE));
         // end of game
     }
 
@@ -159,7 +159,7 @@ public class Game {
                 writer.newLine();
             }
         } catch(IOException e) {
-            System.out.println("Error saving game: " + e.getMessage());
+            System.out.println(StringStyling.StyleStringBright("Error saving game: " + e.getMessage(), Style.BOLD, Color.WHITE, Color.RED));
         }
     }
 
@@ -171,9 +171,9 @@ public class Game {
                 commandHistory.add(cmd);
                 commandRegistry.execute(cmd);
             }
-            System.out.println("Save loaded.");
+            System.out.println(StringStyling.StyleString("Save loaded.", Style.BOLD, Color.GREEN));
         } catch(IOException e) {
-            System.out.println("No save file found, starting new game.");
+            System.out.println(StringStyling.StyleString("No save file found, starting new game.", Style.BOLD, Color.RED));
             initialization();
         }
     }

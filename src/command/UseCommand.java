@@ -28,7 +28,7 @@ public class UseCommand extends Command implements ICommand {
 
         // Si pas de clé spécifiée, afficher les clés et demander la saisie
         if (keyName.isEmpty()) {
-            System.out.println("Your keys:");
+            System.out.println(StringStyling.StyleString("Your keys:", Style.BOLD, Color.WHITE));
             inventory.showKeys(); // Méthode à créer pour n’afficher QUE les clés, pas les autres items
             System.out.print("Enter the name of the key you want to use : ");
             keyName = scanner.nextLine().trim();

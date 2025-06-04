@@ -1,0 +1,98 @@
+map
+look
+move south
+look
+take
+move south
+look
+take
+map
+move south
+look
+take
+move east
+look
+take
+move north
+map
+
+move east
+move west
+move north
+move north
+map
+move east
+look
+move north
+look
+take
+map
+move east
+move south
+move east
+look
+take
+move south
+look
+map
+move south
+move east
+move north
+move east
+look
+move south
+map
+move north
+look
+inspect
+a faded note
+inspect
+inspect
+say echo
+inspect
+say piano
+inspect
+say footsteps
+inspect
+say map
+inspect
+help
+teleport
+teleport Village
+map
+move south
+move south
+move south
+move south
+map
+move east
+move west
+lookk
+look
+move east
+look
+move north
+use
+move north
+look
+move north
+move north
+move north
+move east
+use
+move east
+look
+move south
+move south
+move south
+use
+
+
+
+
+
+teleport
+map
+move north
+inspect
+use

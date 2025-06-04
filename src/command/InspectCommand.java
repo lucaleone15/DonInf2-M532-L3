@@ -27,7 +27,7 @@ public class InspectCommand extends Command implements ICommand {
 
         inventory.showInventory();
 
-        System.out.print("Enter the name of the item you want to inspect: ");
+        System.out.print("Enter the name of the item you want to inspect : ");
         String itemName = scanner.nextLine().trim();
 
         if (itemName.isEmpty()) {
@@ -36,7 +36,7 @@ public class InspectCommand extends Command implements ICommand {
 
         Item item = inventory.getItem(itemName);
         if (item == null) {
-            return StringStyling.StyleString("You don't have any item named '" + itemName + "' in your inventory.", Style.BOLD, Color.RED);
+            return StringStyling.StyleString("You don't have any item named '" + itemName + "' in your inventory.", Style.BOLD, Color.WHITE);
         }
 
         String description = item.getDescription();
