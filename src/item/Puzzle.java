@@ -27,6 +27,10 @@ public class Puzzle {
         return solved;
     }
 
+    public String getAnswer() {
+        return this.answer;
+    }
+
     public String getRiddle() {
         return riddle;
     }
