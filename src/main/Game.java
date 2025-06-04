@@ -92,7 +92,7 @@ public class Game {
         this.commandRegistry.register("take", takeCommand);
         this.commandRegistry.register("use", useCommand);
         this.commandRegistry.register("say", sayCommand);
-        commandRegistry.register("teleport", teleportCommand);
+        this.commandRegistry.register("teleport", teleportCommand);
     }
 
 
@@ -144,7 +144,7 @@ public class Game {
                 break;
             }
 
-            if (!input.equalsIgnoreCase("save") && !input.equalsIgnoreCase("quit") && !input.toLowerCase().startsWith("inspect")) {
+            if (!input.equalsIgnoreCase("save") && !input.equalsIgnoreCase("quit") && !input.toLowerCase().startsWith("inspect") && !input.toLowerCase().startsWith("map")&& !input.toLowerCase().startsWith("help") && !input.toLowerCase().startsWith("look")) {
                 commandHistory.add(input);
             }
 
