@@ -15,7 +15,7 @@ public class WorldMapLocationGenerator {
         map[0][2] = new Location("Tower", "An old tower locked by an ancient mechanism.", true, null, new Key("tower", "A heavy iron key to open the ancient Tower."));
         map[0][3] = new Location("Cliffs", "Steep cliffs drop into the abyss. Nothing to be found.", false, null, null);
 
-        map[1][0] = new Location("Forest", "A dense forest filled with eerie silence.", false, new Item("Teleport Crystal", "A glowing crystal that allows teleportation to visited locations."), null);
+        map[1][0] = new Location("Forest", "A dense forest filled with eerie silence.", false, null, null);
         map[1][1] = new Location("Crossroads", "A crossroads with a rusty signpost pointing in all directions.", false, null, null);
         map[1][2] = new Location("Chapel", "An abandoned chapel entangled in thorns.", false, new Letter("A faded note", "I speak without a mouth and hear without ears..."), null);
         map[1][3] = new Location("Cave", "A damp cave with ancient carvings.", false, null, null);
