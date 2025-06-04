@@ -8,18 +8,21 @@ import utils.Color;
 import utils.StringStyling;
 import utils.Style;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class UseCommand extends Command implements ICommand {
     private WorldMap worldMap;
     private Inventory inventory;
     private Scanner scanner;
+    private List<String> commandHistory;
 
-    public UseCommand(String verb, String description, WorldMap worldMap, Inventory inventory, Scanner scanner) {
+    public UseCommand(String verb, String description, WorldMap worldMap, Inventory inventory, Scanner scanner, List<String> commandHistory) {
         super(verb, description);
         this.worldMap = worldMap;
         this.inventory = inventory;
         this.scanner = scanner;
+        this.commandHistory = commandHistory;
     }
 
     @Override
@@ -32,6 +35,9 @@ public class UseCommand extends Command implements ICommand {
             inventory.showKeys(); // Méthode à créer pour n’afficher QUE les clés, pas les autres items
             System.out.print("Enter the name of the key you want to use : ");
             keyName = scanner.nextLine().trim();
+            if (!keyName.isEmpty()) {
+                commandHistory.add("use " + keyName);
+            }
         }
 
         Item key = inventory.getItem(keyName);

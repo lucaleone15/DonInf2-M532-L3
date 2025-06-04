@@ -81,7 +81,7 @@ public class Game {
         Command lookCommand = new LookCommand("look", "Use 'look' to see if there is an object in your player location.", worldMap);
         Command inspectCommand = new InspectCommand("inspect", "Use 'inspect' to see an item description.", inventory, scanner);
         Command takeCommand = new TakeCommand("Take", "Use 'take' to put an item in your inventory.", worldMap, inventory);
-        Command useCommand = new UseCommand("Use", "Use 'use' to use a key to unlock a location.", worldMap, inventory, scanner);
+        Command useCommand = new UseCommand("Use", "Use 'use' to use a key to unlock a location.", worldMap, inventory, scanner, commandHistory);
         Command sayCommand = new SayCommand("say", "Use 'say answer' to resolve a puzzle.", worldMap, inventory, puzzles);
         Command teleportCommand = new TeleportCommand("teleport", "Use 'teleport' to go to a known location.", worldMap, inventory, visitedLocations);
         this.commandRegistry.register("move", moveCommand);
@@ -144,8 +144,10 @@ public class Game {
                 break;
             }
 
-            // enregistrer la commande dans l'historique sauf "save" et "quit"
-            commandHistory.add(input);
+            if (!input.equalsIgnoreCase("save") && !input.equalsIgnoreCase("quit") && !input.toLowerCase().startsWith("inspect")) {
+                commandHistory.add(input);
+            }
+
         }
 
         System.out.println(StringStyling.StyleString("Thanks for playing !", Style.BOLD, Color.WHITE));
