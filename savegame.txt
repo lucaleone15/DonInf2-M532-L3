@@ -1,8 +1,8 @@
-look
+move est
 move east
-look
 take
 say footsteps
+move east
 use tower
 use
 move east

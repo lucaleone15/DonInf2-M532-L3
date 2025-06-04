@@ -1,6 +1,7 @@
 package command;
 
 import item.Item;
+import main.Game;
 import main.Location;
 import main.WorldMap;
 import play.Inventory;
@@ -10,19 +11,22 @@ import utils.Style;
 
 import java.util.List;
 import java.util.Scanner;
+import java.util.function.Supplier;
 
 public class UseCommand extends Command implements ICommand {
     private WorldMap worldMap;
     private Inventory inventory;
     private Scanner scanner;
     private List<String> commandHistory;
+    private Game game;
 
-    public UseCommand(String verb, String description, WorldMap worldMap, Inventory inventory, Scanner scanner, List<String> commandHistory) {
+    public UseCommand(String verb, String description, WorldMap worldMap, Inventory inventory, Scanner scanner, List<String> commandHistory, Game game) {
         super(verb, description);
         this.worldMap = worldMap;
         this.inventory = inventory;
         this.scanner = scanner;
         this.commandHistory = commandHistory;
+        this.game = game;
     }
 
     @Override
@@ -31,8 +35,10 @@ public class UseCommand extends Command implements ICommand {
 
         // Si pas de clé spécifiée, afficher les clés et demander la saisie
         if (keyName.isEmpty()) {
+            if (Game.isLoading) return ""; // ✅ Ne rien afficher pendant le chargement
+
             System.out.println(StringStyling.StyleString("Your keys:", Style.BOLD, Color.WHITE));
-            inventory.showKeys(); // Méthode à créer pour n’afficher QUE les clés, pas les autres items
+            inventory.showKeys();
             System.out.print("Enter the name of the key you want to use : ");
             keyName = scanner.nextLine().trim();
             if (!keyName.isEmpty()) {
@@ -42,6 +48,7 @@ public class UseCommand extends Command implements ICommand {
 
         Item key = inventory.getItem(keyName);
         if (key == null) {
+            if (Game.isLoading) return ""; // ✅ Ne rien afficher pendant le chargement
             return StringStyling.StyleStringBright("You don't have the key '" + keyName + "' in your inventory.", Style.BOLD, Color.WHITE, Color.RED);
         }
 
@@ -58,11 +65,14 @@ public class UseCommand extends Command implements ICommand {
                 if (loc != null && loc.isLocked() && loc.canBeUnlockedWith(key)) {
                     loc.unlock();
                     inventory.removeItemByName(keyName);
+                    if (Game.isLoading) return ""; // ✅ Ne rien afficher pendant le chargement
                     return StringStyling.StyleString("You used the key '" + keyName + "' to unlock the " + loc.getName() + ".", Style.BOLD, Color.GREEN);
                 }
             }
         }
 
+        if (Game.isLoading) return ""; // ✅ Ne rien afficher pendant le chargement
         return StringStyling.StyleStringBright("There is no locked location nearby that can be unlocked with the key '" + keyName + "'.", Style.BOLD, Color.WHITE, Color.RED);
     }
+
 }

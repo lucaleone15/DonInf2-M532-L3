@@ -27,7 +27,7 @@ public class Game {
     private List<String> commandHistory = new ArrayList<>();
     private Set<String> visitedLocations = new HashSet<>();
     private static final String SAVE_FILENAME = "savegame.txt";
-
+    public static boolean isLoading = false;
 
     public Game(){
         //System.out.println("Initializing game...");
@@ -81,7 +81,7 @@ public class Game {
         Command lookCommand = new LookCommand("look", "Use 'look' to see if there is an object in your player location.", worldMap);
         Command inspectCommand = new InspectCommand("inspect", "Use 'inspect' to see an item description.", inventory, scanner);
         Command takeCommand = new TakeCommand("Take", "Use 'take' to put an item in your inventory.", worldMap, inventory);
-        Command useCommand = new UseCommand("Use", "Use 'use' to use a key to unlock a location.", worldMap, inventory, scanner, commandHistory);
+        Command useCommand = new UseCommand("Use", "Use 'use' to use a key to unlock a location.", worldMap, inventory, scanner, commandHistory, this);
         Command sayCommand = new SayCommand("say", "Use 'say answer' to resolve a puzzle.", worldMap, inventory, puzzles);
         Command teleportCommand = new TeleportCommand("teleport", "Use 'teleport' to go to a known location.", worldMap, inventory, visitedLocations);
         this.commandRegistry.register("move", moveCommand);
@@ -169,16 +169,21 @@ public class Game {
         try {
             List<String> savedCommands = Files.readAllLines(Paths.get(SAVE_FILENAME));
             initialization();
-            for(String cmd : savedCommands) {
+
+            isLoading = true;
+            for (String cmd : savedCommands) {
                 commandHistory.add(cmd);
                 commandRegistry.execute(cmd);
             }
+            isLoading = false;
+
             System.out.println(StringStyling.StyleString("Save loaded.", Style.BOLD, Color.GREEN));
         } catch(IOException e) {
             System.out.println(StringStyling.StyleString("No save file found, starting new game.", Style.BOLD, Color.RED));
             initialization();
         }
     }
+
     public boolean isGameWon() {
         return inventory.hasItem("FinalKey");
     }
