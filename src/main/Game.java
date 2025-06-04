@@ -140,7 +140,7 @@ public class Game {
             }
 
             if (isGameWon()) {
-                System.out.println(StringStyling.StyleStringBright("\n🎉 Congratulations! You completed the game! 🎉", Style.BOLD, Color.WHITE, Color.GREEN));
+                System.out.println(StringStyling.StyleStringBright("🎉 Congratulations! You completed the game! 🎉", Style.BOLD, Color.WHITE, Color.GREEN));
                 break;
             }
 
