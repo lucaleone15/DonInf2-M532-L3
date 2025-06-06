@@ -29,14 +29,14 @@ public class SayCommand extends Command implements ICommand {
         for (Puzzle puzzle : puzzles) {
             if (puzzle.isSolved()) {
                 if (puzzle.getAnswer().equalsIgnoreCase(instruction.trim())) {
-                    return StringStyling.StyleStringBright("You already solved this puzzle.", Style.BOLD, Color.WHITE, Color.RED);
+                    return StringStyling.StyleString("You already solved this puzzle.", Style.BOLD, Color.WHITE);
                 }
                 continue;
             }
 
             if (puzzle.attempt(instruction)) {
                 inventory.addItem(puzzle.getReward());
-                return StringStyling.StyleString("Correct! You solved the puzzle and obtained: " + puzzle.getReward().getName(), Style.BOLD, Color.GREEN);
+                return StringStyling.StyleString("Correct ! You solved the puzzle and obtained : " + puzzle.getReward().getName(), Style.BOLD, Color.GREEN);
             }
         }
 

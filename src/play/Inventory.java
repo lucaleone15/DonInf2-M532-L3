@@ -48,7 +48,7 @@ public class Inventory {
 
 
     public void showInventory() {
-        System.out.println(StringStyling.StyleString("Inventory:", Style.BOLD, Color.WHITE));
+        System.out.println(StringStyling.StyleString("Inventory :", Style.BOLD, Color.WHITE));
         if (playerInventory.isEmpty()) {
             System.out.println(" - (empty)");
         } else {

@@ -29,18 +29,18 @@ public class TeleportCommand extends Command implements ICommand {
         }
 
         if (visitedLocations.isEmpty()) {
-            return StringStyling.StyleStringBright("You have not visited any locations yet.", Style.BOLD, Color.WHITE, Color.RED);
+            return StringStyling.StyleString("You have not visited any locations yet.", Style.BOLD, Color.WHITE);
         }
 
         // Affiche la liste des lieux visités
-        StringBuilder sb = new StringBuilder(StringStyling.StyleString("Visited locations:\n", Style.BOLD, Color.WHITE));
+        StringBuilder sb = new StringBuilder(StringStyling.StyleString("Visited locations :\n", Style.BOLD, Color.WHITE));
         for (String locName : visitedLocations) {
             sb.append("- ").append(locName).append("\n");
         }
 
         // Si aucune destination spécifiée, on affiche la liste et demande la destination
         if (instruction == null || instruction.trim().isEmpty()) {
-            sb.append(StringStyling.StyleString("Please specify a location to teleport to.", Style.BOLD, Color.WHITE));
+            sb.append(StringStyling.StyleStringBright("You have to specify a location to teleport to (teleport <location>.", Style.BOLD, Color.WHITE, Color.RED));
             return sb.toString();
         }
 

@@ -33,11 +33,10 @@ public class UseCommand extends Command implements ICommand {
     public String execute(String instruction) {
         String keyName = instruction.trim();
 
-        // Si pas de clé spécifiée, afficher les clés et demander la saisie
         if (keyName.isEmpty()) {
-            if (Game.isLoading) return ""; // ✅ Ne rien afficher pendant le chargement
+            if (Game.isLoading) return "";
 
-            System.out.println(StringStyling.StyleString("Your keys:", Style.BOLD, Color.WHITE));
+            System.out.println(StringStyling.StyleString("Your keys :", Style.BOLD, Color.WHITE));
             inventory.showKeys();
             System.out.print("Enter the name of the key you want to use : ");
             keyName = scanner.nextLine().trim();
@@ -48,8 +47,8 @@ public class UseCommand extends Command implements ICommand {
 
         Item key = inventory.getItem(keyName);
         if (key == null) {
-            if (Game.isLoading) return ""; // ✅ Ne rien afficher pendant le chargement
-            return StringStyling.StyleStringBright("You don't have the key '" + keyName + "' in your inventory.", Style.BOLD, Color.WHITE, Color.RED);
+            if (Game.isLoading) return "";
+            return StringStyling.StyleString("You don't have the key '" + keyName + "' in your inventory.", Style.BOLD, Color.RED);
         }
 
         int playerRow = worldMap.getPlayerRow();
@@ -65,14 +64,14 @@ public class UseCommand extends Command implements ICommand {
                 if (loc != null && loc.isLocked() && loc.canBeUnlockedWith(key)) {
                     loc.unlock();
                     inventory.removeItemByName(keyName);
-                    if (Game.isLoading) return ""; // ✅ Ne rien afficher pendant le chargement
+                    if (Game.isLoading) return "";
                     return StringStyling.StyleString("You used the key '" + keyName + "' to unlock the " + loc.getName() + ".", Style.BOLD, Color.GREEN);
                 }
             }
         }
 
-        if (Game.isLoading) return ""; // ✅ Ne rien afficher pendant le chargement
-        return StringStyling.StyleStringBright("There is no locked location nearby that can be unlocked with the key '" + keyName + "'.", Style.BOLD, Color.WHITE, Color.RED);
+        if (Game.isLoading) return "";
+        return StringStyling.StyleString("There is no locked location nearby that can be unlocked with the key '" + keyName + "'.", Style.BOLD, Color.RED);
     }
 
 }

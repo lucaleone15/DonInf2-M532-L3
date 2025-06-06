@@ -20,7 +20,7 @@ public class LookCommand extends Command implements ICommand{
         int col = this.worldMap.getPlayerCol();
         int row = this.worldMap.getPlayerRow();
         if (!(this.worldMap.getLocationAt(row, col).getItem() == null)){
-            System.out.println(StringStyling.StyleString("There is an item in this Location", Style.BOLD, Color.WHITE));
+            System.out.println(StringStyling.StyleString("There is an item in this Location.", Style.BOLD, Color.WHITE));
         }
         return "";
     }

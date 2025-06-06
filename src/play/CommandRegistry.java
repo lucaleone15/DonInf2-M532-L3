@@ -26,7 +26,7 @@ public class CommandRegistry {
         Command command = commands.get(keyword);
 
         if (command == null) {
-            return StringStyling.StyleStringBright("Unknown command: " + keyword, Style.BOLD, Color.WHITE, Color.RED);
+            return StringStyling.StyleStringBright("Unknown command : " + keyword, Style.BOLD, Color.WHITE, Color.RED);
         }
         return command.execute(args);
     }

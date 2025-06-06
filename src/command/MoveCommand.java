@@ -21,7 +21,7 @@ public class MoveCommand extends Command implements ICommand {
     @Override
     public String execute(String args) {
         if (args == null || args.isEmpty()) {
-            return StringStyling.StyleString("Please specify a direction (north, south, east, west).", Style.BOLD, Color.WHITE);
+            return StringStyling.StyleStringBright("You have to specify a direction (move <north / south / east / west>).", Style.BOLD, Color.WHITE, Color.RED);
         }
 
         int currentRow = worldMap.getPlayerRow();
@@ -49,12 +49,12 @@ public class MoveCommand extends Command implements ICommand {
 
         // Vérifie si la nouvelle position est valide
         if (!worldMap.isValidPosition(newRow, newCol)) {
-            return StringStyling.StyleStringBright("Impossible to move there.", Style.BOLD, Color.WHITE, Color.RED);
+            return StringStyling.StyleString("Impossible to move there.", Style.BOLD, Color.RED);
         }
 
         Location destination = worldMap.getLocationAt(newRow, newCol);
         if (destination == null) {
-            return StringStyling.StyleStringBright("Impossible to move there.", Style.BOLD, Color.WHITE, Color.RED);
+            return StringStyling.StyleString("Impossible to move there.", Style.BOLD, Color.RED);
         }
 
         if (destination.isLocked()) {

@@ -36,7 +36,7 @@ public class InspectCommand extends Command implements ICommand {
 
         Item item = inventory.getItem(itemName);
         if (item == null) {
-            return StringStyling.StyleString("You don't have any item named '" + itemName + "' in your inventory.", Style.BOLD, Color.WHITE);
+            return StringStyling.StyleString("You don't have any item named '" + itemName + "' in your inventory.", Style.BOLD, Color.RED);
         }
 
         String description = item.getDescription();

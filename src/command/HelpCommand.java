@@ -19,7 +19,7 @@ public class HelpCommand extends Command implements ICommand{
     public String execute(String instruction) {
         return commandRegistry.getCommands().values().stream()
                 .filter(cmd -> !(cmd instanceof TeleportCommand) || inventory.hasItem("Teleport Crystal"))
-                .map(cmd -> cmd.getVerb() + ": " + cmd.getDescription())
+                .map(cmd -> cmd.getVerb() + " : " + cmd.getDescription())
                 .collect(Collectors.joining("\n"));
     }
 

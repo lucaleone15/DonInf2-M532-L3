@@ -1,8 +1,16 @@
-move est
+move south
 move east
+move north
 take
 say footsteps
+move eas
 move east
 use tower
 use
 move east
+move south
+take
+say echo
+move east
+move north
+move south
