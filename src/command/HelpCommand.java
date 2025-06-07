@@ -18,7 +18,7 @@ public class HelpCommand extends Command implements ICommand{
     @Override
     public String execute(String instruction) {
         return commandRegistry.getCommands().values().stream()
-                .filter(cmd -> !(cmd instanceof TeleportCommand) || inventory.hasItem("Teleport Crystal"))
+                .filter(cmd -> !(cmd instanceof TeleportCommand) || inventory.hasItem("teleport crystal"))
                 .map(cmd -> cmd.getVerb() + " : " + cmd.getDescription())
                 .collect(Collectors.joining("\n"));
     }

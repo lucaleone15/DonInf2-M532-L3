@@ -80,8 +80,8 @@ public class Game {
         Command helpCommand = new HelpCommand("help", "Use 'help' to know which commands are usable.", commandRegistry, inventory);
         Command lookCommand = new LookCommand("look", "Use 'look' to see if there is an object in your player location.", worldMap);
         Command inspectCommand = new InspectCommand("inspect", "Use 'inspect' to see an item description.", inventory, scanner);
-        Command takeCommand = new TakeCommand("Take", "Use 'take' to put an item in your inventory.", worldMap, inventory);
-        Command useCommand = new UseCommand("Use", "Use 'use' to use a key to unlock a location.", worldMap, inventory, scanner, commandHistory, this);
+        Command takeCommand = new TakeCommand("take", "Use 'take' to put an item in your inventory.", worldMap, inventory);
+        Command useCommand = new UseCommand("use", "Use 'use' to use a key to unlock a location.", worldMap, inventory, scanner, commandHistory, this);
         Command sayCommand = new SayCommand("say", "Use 'say <answer>' to resolve a puzzle.", worldMap, inventory, puzzles);
         Command teleportCommand = new TeleportCommand("teleport", "Use 'teleport <location>' to go to a known location.", worldMap, inventory, visitedLocations);
         this.commandRegistry.register("move", moveCommand);
@@ -185,7 +185,7 @@ public class Game {
     }
 
     public boolean isGameWon() {
-        return inventory.hasItem("FinalKey");
+        return inventory.hasItem("finalkey");
     }
     public Set<String> getVisitedLocations() {
         return visitedLocations;

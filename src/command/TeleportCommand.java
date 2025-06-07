@@ -24,7 +24,7 @@ public class TeleportCommand extends Command implements ICommand {
 
     @Override
     public String execute(String instruction) {
-        if (!inventory.hasItem("Teleport Crystal")) {
+        if (!inventory.hasItem("teleport crystal")) {
             return StringStyling.StyleStringBright("You need the Teleport Crystal to use this command.", Style.BOLD, Color.WHITE, Color.RED);
         }
 

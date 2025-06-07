@@ -1,16 +1,23 @@
-move south
 move east
-move north
 take
 say footsteps
-move eas
 move east
 use tower
 use
+move eastt
 move east
 move south
 take
+inpsect
 say echo
-move east
-move north
 move south
+mao
+use crypt
+use
+move south
+move east
+move west
+move south¨
+move south
+take
+inpsect
