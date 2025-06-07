@@ -120,6 +120,7 @@ public class Game {
         System.out.println("Use 'take' to put an item in your inventory.");
         System.out.println("Use 'use' to use a key to unlock a location.");
         System.out.println("Use 'say <answer>' to resolve a puzzle.");
+        System.out.println("Use 'save' to save your keep your progression.");
         System.out.println("Use 'quit' to exit.");
         System.out.println();
 
